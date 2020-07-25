@@ -368,7 +368,7 @@ func (self *Container) maybeCollectSparseFile(
 			return nil, err
 		}
 
-		serialized, err := utils.DictsToJson(index)
+		serialized, err := utils.DictsToJson(index, nil)
 		if err != nil {
 			closer()
 			return &api.UploadResponse{
