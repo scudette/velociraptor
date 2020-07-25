@@ -3,3 +3,4 @@ Queries:
   - SELECT FullPath, SHA1, Source, Deduped FROM Artifact.Windows.Search.VSS(SearchFilesGlob='c:\\Users\\test.txt')
   # Test for multiple hits
   - SELECT FullPath, SHA1, Source, Deduped FROM Artifact.Windows.Search.VSS(SearchFilesGlob='c:\\Users\\test2.txt')
+  - SELECT FullPath, Data FROM glob(globs="/*", accessor="ntfs")

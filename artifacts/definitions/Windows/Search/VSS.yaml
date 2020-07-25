@@ -30,7 +30,7 @@ sources:
                     else=SearchFilesGlob))
 
       # Build a SearchGlob for all logical disks and VSS
-      - LET globs = SELECT * FullPath + Path as SearchGlob
+      - LET globs = SELECT *, FullPath + Path as SearchGlob
             FROM glob(globs='/*', accessor='ntfs')
             ORDER BY FullPath
 
