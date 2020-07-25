@@ -1,9 +1,44 @@
-SELECT * FROM Artifact.Windows.Sys.StartupItems() WHERE Name = 'AppVeyor.BuildAgent' ORDER BY Name[
+SELECT * FROM Artifact.Windows.Sys.StartupItems() -- WHERE Name = 'AppVeyor.BuildAgent' ORDER BY Name[
  {
-  "Name": "AppVeyor.BuildAgent",
-  "FullPath": "\\HKEY_USERS\\S-1-5-21-2195900957-2730782454-3917332813-1001\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\AppVeyor.BuildAgent",
-  "Command": "powershell -File \"C:\\Program Files\\AppVeyor\\BuildAgent\\update-appveyor-agent.ps1\"",
+  "Name": "DOTNETUSERPATH",
+  "FullPath": "\\HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\DOTNETUSERPATH",
+  "Command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -Command \"[System.Environment]::SetEnvironmentVariable('PATH',\"\"\"$env:USERPROFILE\\.dotnet\\tools;$env:PATH\"\"\", 'USER')\"",
   "Enabled": "disabled",
+  "_Source": "Windows.Sys.StartupItems"
+ },
+ {
+  "Name": "RUSTSYM",
+  "FullPath": "\\HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\RUSTSYM",
+  "Command": "C:\\Rust\\rustsym.bat",
+  "Enabled": "disabled",
+  "_Source": "Windows.Sys.StartupItems"
+ },
+ {
+  "Name": "SecurityHealth",
+  "FullPath": "\\HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\SecurityHealth",
+  "Command": "%windir%\\system32\\SecurityHealthSystray.exe",
+  "Enabled": "disabled",
+  "_Source": "Windows.Sys.StartupItems"
+ },
+ {
+  "Name": "c:\\windows\\system32\\msht.exe",
+  "FullPath": "\\HKEY_USERS\\S-1-5-21-2664065525-4027905047-788888382-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\\"c:\\windows\\system32\\msht.exe\"",
+  "Command": "Hello",
+  "Enabled": "disabled",
+  "_Source": "Windows.Sys.StartupItems"
+ },
+ {
+  "Name": "Service Fabric Local Cluster Manager.lnk",
+  "FullPath": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\Service Fabric Local Cluster Manager.lnk",
+  "Enabled": "enable",
+  "Command": "L\u0000ᐁ\u0002\u0000\u0000À\u0000\u0000䘀䃟\u0000 \u0000㰀まǖ짇寊干ǖ㰀まǖ镰\u0001\u0000\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000˷\u0014借俠⃐㫪ၩ�\u0008〫鴰\u0019䌯尺\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000谀㄀\u0000\u0000�ᅅ倀佒則繁1琀ऀЀ⾾慍�⹅\u0000☀\u0000\u0000Ā\u0000\u0000\u0000\u0000䨀\u0000\u0000�萎倀爀漀最爀愀洀 䘀椀氀攀猀\u0000䀀猀栀攀氀氀㌀㈀⸀搀氀氀Ⰰⴀ㈀㄀㜀㠀㄀\u0000᠀昀㄀\u0000\u0000၅䴀䍉佒繓2一ऀЀၐ⹅\u0000瘀߯\u0000Ā\u0000\u0000\u0000\u0000\u0000\u0000\u0000紀ꦷ䴀椀挀爀漀猀漀昀琀 匀䐀䬀猀\u0000᠀昀㄀\u0000\u0000၅匀剅䥖繃1一ऀЀ⹅\u0000茀ಡ\u0000Ȁ\u0000\u0000\u0000\u0000\u0000\u0000\u0000㤀昞匀攀爀瘀椀挀攀 䘀愀戀爀椀挀\u0000᠀倀㄀\u0000\u0000၅吀潯獬㰀ऀЀ⹅\u0000萀ಡ\u0000Ȁ\u0000\u0000\u0000\u0000\u0000\u0000\u0000ꘀ頰吀漀漀氀猀\u0000᐀言㄀\u0000\u0000၅匀剅䥖繃2爀ऀЀ⹅\u0000ꔀಡ\u0000Ā\u0000\u0000\u0000\u0000\u0000\u0000\u0000㤀昞匀攀爀瘀椀挀攀䘀愀戀爀椀挀䰀漀挀愀氀䌀氀甀猀琀攀爀䴀愀渀愀最攀爀\u0000᠀阀㈀瀀ƕ똀깐₪匀剅䥖繃⸱塅E稀ऀЀ뚾깐⹅\u0000혀ಡ\u0000Ā\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000匀攀爀瘀椀挀攀䘀愀戀爀椀挀䰀漀挀愀氀䌀氀甀猀琀攀爀䴀愀渀愀最攀爀⸀攀砀攀\u0000ᰀ\u0000뀀\u0000ᰀ\u0000Ā\u0000ᰀ\u0000㐀\u0000\u0000\u0000꼀\u0000᠀\u0000̀\u0000Ȁ埬ႎ\u0000圀湩潤獷䌀尺牐杯慲⁭楆敬屳楍牣獯景⁴䑓獋卜牥楶散䘠扡楲屣潔汯屳敓癲捩䙥扡楲䱣捯污汃獵整䵲湡条牥卜牥楶散慆牢捩潌慣䍬畬瑳牥慍慮敧⹲硥e㐀䴀愀渀愀最攀猀 氀漀挀愀氀 匀攀爀瘀椀挀攀 䘀愀戀爀椀挀 䌀氀甀猀琀攀爀 漀渀 琀栀椀猀 洀愀挀栀椀渀攀褀⸀⸀尀⸀⸀尀⸀⸀尀⸀⸀尀⸀⸀尀⸀⸀尀倀爀漀最爀愀洀 䘀椀氀攀猀尀䴀椀挀爀漀猀漀昀琀 匀䐀䬀猀尀匀攀爀瘀椀挀攀 䘀愀戀爀椀挀尀吀漀漀氀猀尀匀攀爀瘀椀挀攀䘀愀戀爀椀挀䰀漀挀愀氀䌀氀甀猀琀攀爀䴀愀渀愀最攀爀尀匀攀爀瘀椀挀攀䘀愀戀爀椀挀䰀漀挀愀氀䌀氀甀猀琀攀爀䴀愀渀愀最攀爀⸀攀砀攀嘀䌀㨀尀倀爀漀最爀愀洀 䘀椀氀攀猀尀䴀椀挀爀漀猀漀昀琀 匀䐀䬀猀尀匀攀爀瘀椀挀攀 䘀愀戀爀椀挀尀吀漀漀氀猀尀匀攀爀瘀椀挀攀䘀愀戀爀椀挀䰀漀挀愀氀䌀氀甀猀琀攀爀䴀愀渀愀最攀爀尀䐀䌀㨀尀眀椀渀搀漀眀猀尀䤀渀猀琀愀氀氀攀爀尀笀㠀㄀㌀䔀䄀䔀㜀䘀ⴀ䌀䔀㐀䔀ⴀ㐀㜀䘀㤀ⴀ㠀㤀㜀䌀ⴀ㤀䘀㘀䈀㐀㘀䌀㤀㔀䈀㘀　紀尀䰀䌀䴀开䤀挀漀渀᐀\u0003܀\u0000■祓瑳浥潒瑯尥湉瑳污敬屲㡻㌱䅅㝅ⵆ䕃䔴㐭䘷ⴹ㤸䌷㤭㙆㑂䌶㔹㙂細䱜䵃䥟潣n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000─匀礀猀琀攀洀刀漀漀琀─尀䤀渀猀琀愀氀氀攀爀尀笀㠀㄀㌀䔀䄀䔀㜀䘀ⴀ䌀䔀㐀䔀ⴀ㐀㜀䘀㤀ⴀ㠀㤀㜀䌀ⴀ㤀䘀㘀䈀㐀㘀䌀㤀㔀䈀㘀　紀尀䰀䌀䴀开䤀挀漀渀\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000က\u0000Ԁ\u0000⚠\u0000뤀\u0000ᰀ\u0000଀\u0000뚠幣뾐仁뉉斜㊷틓뤚\u0000怀\u0000̀\u0000墠\u0000\u0000\u0000瀀牫浶橢㍺扺瑵癵耺槙ꆗ腇襷蘫懓�漌摸謑x䠢呄耺槙ꆗ腇襷蘫懓�漌摸謑x䠢呄虔\u0000ऀ\u0000䆠\u0000㄀偓墊뱆㡌뭃ᏼ⚓涘◎\u0000Ѐ\u0000\u0000\u001f\u0000\t\u0000S-1-5-18\u0000\u0000\u0000\u00009\u0000匱卐ᚱ䑭趭䡰䢧⹀㶤豸\u001d\u0000h\u0000䠀\u0000鼀䅛 \u0000\u0000倀\u001f\u0000\u0000\u0000\u0000\u0000\u0000\u0000�",
+  "_Source": "Windows.Sys.StartupItems"
+ },
+ {
+  "Name": "desktop.ini",
+  "FullPath": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\desktop.ini",
+  "Enabled": "enable",
+  "Command": "\r\n[.ShellClassInfo]\r\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,-21787\r\n",
   "_Source": "Windows.Sys.StartupItems"
  }
 ]
