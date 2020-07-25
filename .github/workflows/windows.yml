@@ -118,4 +118,4 @@ jobs:
       if: always()
       with:
         name: artifact
-        path: artifact-output
+        path: artifact_output
