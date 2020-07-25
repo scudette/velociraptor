@@ -105,7 +105,7 @@ jobs:
       shell: bash
       if: always()
       run: |
-        output/velociraptor.exe golden artifacts/testdata/windows/ --env srcDir=./ --config artifacts/testdata/windows/test.config.yaml
+        output/velociraptor.exe golden artifacts/testdata/windows/ --env srcDir=./ --config artifacts/testdata/windows/test.config.yaml --env srcDir=d:/a/velociraptor/velociraptor
 
     - name: Upload Build Artifacts
       if: always()
