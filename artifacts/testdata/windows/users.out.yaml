@@ -1,11 +1,4 @@
-Select Name, Uid, Gid, Directory, Type  from Artifact.Windows.Sys.Users() // WHERE Name in ("appveyor", "Administrator") ORDER BY Name[
- {
-  "Name": "DefaultAccount",
-  "Uid": 503,
-  "Gid": 513,
-  "Directory": null,
-  "Type": "local"
- },
+Select Name, Uid, Gid, Directory, Type  from Artifact.Windows.Sys.Users() WHERE Name in ("Guest", "runneradmin") ORDER BY Name[
  {
   "Name": "Guest",
   "Uid": 501,
@@ -14,59 +7,10 @@ Select Name, Uid, Gid, Directory, Type  from Artifact.Windows.Sys.Users() // WHE
   "Type": "local"
  },
  {
-  "Name": "installer",
-  "Uid": 1000,
-  "Gid": 513,
-  "Directory": "C:\\Users\\installer",
-  "Type": "local"
- },
- {
   "Name": "runneradmin",
   "Uid": 500,
   "Gid": 513,
   "Directory": "C:\\Users\\runneradmin",
   "Type": "local"
- },
- {
-  "Name": "WDAGUtilityAccount",
-  "Uid": 504,
-  "Gid": 513,
-  "Directory": null,
-  "Type": "local"
- },
- {
-  "Name": "SYSTEM",
-  "Uid": "",
-  "Gid": "",
-  "Directory": "%systemroot%\\system32\\config\\systemprofile",
-  "Type": "roaming"
- },
- {
-  "Name": "LOCAL SERVICE",
-  "Uid": "",
-  "Gid": "",
-  "Directory": "%systemroot%\\ServiceProfiles\\LocalService",
-  "Type": "roaming"
- },
- {
-  "Name": "NETWORK SERVICE",
-  "Uid": "",
-  "Gid": "",
-  "Directory": "%systemroot%\\ServiceProfiles\\NetworkService",
-  "Type": "roaming"
- },
- {
-  "Name": ".NET v4.5",
-  "Uid": "",
-  "Gid": "",
-  "Directory": "C:\\Users\\.NET v4.5",
-  "Type": "roaming"
- },
- {
-  "Name": ".NET v4.5 Classic",
-  "Uid": "",
-  "Gid": "",
-  "Directory": "C:\\Users\\.NET v4.5 Classic",
-  "Type": "roaming"
  }
 ]

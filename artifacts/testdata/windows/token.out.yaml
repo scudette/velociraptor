@@ -1,5 +1,5 @@
-SELECT split(string=token(pid=getpid()).Username, sep="\\")[1] As Username from scope()[
+SELECT token(pid=getpid()).Username As Username from scope()[
  {
-  "Username": null
+  "Username": "fv-az41\\runneradmin"
  }
 ]
