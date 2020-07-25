@@ -1,8 +1,10 @@
-name: Linux Build
+# Only trigger when a PR is committed.
+name: Linux Build All Arches
 on:
   push:
-    branches-ignore:
-      - '**'
+    branches:
+      - main
+
 jobs:
   build:
     name: Build
@@ -29,27 +31,17 @@ jobs:
             node node_modules/gulp/bin/gulp.js compile
             cd ../../
 
-    - name: Build
+    - name: Build All Architectures
       run: |
         mkdir ./output/
         export PATH=$PATH:~/go/bin/
         go run make.go -v Linux
-
-    - name: Test
-      run: |
-        go test ./...
-        ./output/velociraptor*linux* golden ./artifacts/testdata./server./testcases/ --env srcDir=./
-
-    - name: Build All Architectures
-      run: |
-        export PATH=$PATH:~/go/bin/
         go run make.go -v Windows
         go run make.go -v Windowsx86
         go run make.go -v DarwinBase
-        zip Binaries.zip output/*
 
     - name: StoreBinaries
       uses: actions/upload-artifact@v1
       with:
         name: Binaries.zip
-        path: Binaries.zip
+        path: output

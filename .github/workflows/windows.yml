@@ -1,4 +1,4 @@
-name: Windows Build
+name: Windows Test
 on: [push]
 jobs:
   build:
@@ -71,9 +71,6 @@ jobs:
       if: always()
       env:
         CC: x86_64-w64-mingw32-gcc
-        # Disable CGO for building tests - it takes too long (mainly
-        # disables Yara building again).
-        CGO_ENABLED: "0"
       shell: bash
       run: |
         mkdir gui/static/dist/
@@ -112,9 +109,11 @@ jobs:
       if: always()
       shell: bash
       run: |
-        mkdir artifact_output
-        cp artifacts/testdata/windows/*.out* artifact_output
-        cp artifacts/testdata/server/testcases/*.out* artifact_output
+        mkdir -p artifact_output/windows/
+        cp artifacts/testdata/windows/*.out* artifact_output/windows/
+
+        mkdir -p artifact_output/server/
+        cp artifacts/testdata/server/testcases/*.out* artifact_output/server/
 
     - uses: actions/upload-artifact@master
       if: always()
