@@ -42,6 +42,7 @@ jobs:
         sc.exe create TestingDetection1 binPath="%COMSPEC% /Q /c echo 'COMSPEC testing 1"
         echo "VSStest" > c:\Users\test.txt
         echo "VSStest2" > c:\Users\test2.txt
+        vssadmin create shadow /for=c:
         regedit /S artifacts/testdata/windows/init.reg
 
     - name: Build
@@ -58,7 +59,6 @@ jobs:
     - name: Prepare second stage
       if: always()
       run: |
-        vssadmin create shadow /for=c:
         echo "VSStest2" >> c:\Users\test2.txt
         wevtutil.exe cl System
         sc.exe create TestingDetection2 binPath="%COMSPEC% /Q /c echo 'COMSPEC testing 2"
