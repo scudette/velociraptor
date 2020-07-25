@@ -255,9 +255,10 @@ func WindowsDev() error {
 
 func WindowsTest() error {
 	return Builder{
-		goos:     "windows",
-		filename: "velociraptor.exe",
-		arch:     "amd64"}.Run()
+		goos:        "windows",
+		disable_cgo: true,
+		filename:    "velociraptor.exe",
+		arch:        "amd64"}.Run()
 }
 
 func Windowsx86() error {
