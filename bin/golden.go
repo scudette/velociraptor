@@ -25,6 +25,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/Velocidex/ordereddict"
 	"github.com/Velocidex/yaml/v2"
@@ -138,8 +139,12 @@ func runTest(fixture *testFixture) (string, error) {
 			return "", err
 		}
 
+		ctx, cancel := context.WithTimeout(
+			context.Background(), 60*time.Second)
+		defer cancel()
+
 		result_chan := vfilter.GetResponseChannel(
-			vql, context.Background(), scope,
+			vql, ctx, scope,
 			vql_subsystem.MarshalJsonIndent(scope),
 			1000, 1000)
 		for {
