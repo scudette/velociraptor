@@ -132,7 +132,7 @@ two workflows:
 1. Windows Test: this workflow build a minimal version of the
    Velociraptor binary (without the GUI) and runs all the tests on
    it. We also test various windows support functions in this
-   pipeline. This pipeline builds on evert push in each PR.
+   pipeline. This pipeline builds on every push in each PR.
 
 2. Linux Build All Arches: This pipeline builds complete binaries for
    many supported architectures. It only runs when the PR is merged

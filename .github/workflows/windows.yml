@@ -2,7 +2,7 @@ name: Windows Test
 on: [push]
 jobs:
   build:
-    name: Build
+    name: Windows Test
     runs-on: windows-latest
     steps:
     - name: Set up Go 1.14
@@ -92,6 +92,8 @@ jobs:
       shell: cmd
       if: always()
       run: |
+        vssadmin create shadow /for=c:
+
         echo Running windows specific tests.
         output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\windows\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
 
