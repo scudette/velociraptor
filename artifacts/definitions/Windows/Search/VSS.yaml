@@ -37,7 +37,7 @@ sources:
       -- Glob for all files in SearchGlob and calculate their hash.
       LET globvss(SearchGlob) = SELECT *,
             extract_path(FullPath=FullPath).Path AS Path,
-            extract_vss(FullPath=FullPath).Device AS Source,
+            basename(path=extract_vss(FullPath=FullPath).Device) AS Source,
             hash(path=FullPath,accessor='ntfs').SHA1 as SHA1
          FROM glob(globs=SearchGlob, accessor='ntfs')
          WHERE NOT IsDIr
@@ -46,16 +46,19 @@ sources:
       -- and hashes.
       LET results = SELECT * FROM foreach(row=globs,
       query={
-        SELECT * FROM globvss(SearchGlob=SearchGlob)
+        -- Prepend VSS with _ to make them sort last.
+        SELECT *, if(condition=Source =~ '^HarddiskVolumeShadowCopy',
+                     then='_' + Source,
+                     else=Source) AS Source
+        FROM globvss(SearchGlob=SearchGlob)
       })
 
       -- We want to see natural drives after VSS because group by
-      -- shows the last in the group. VSS paths look like
-      -- \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Users\test.txt
-      -- Where disk paths look like \\.\C:\Users\test.txt
+      -- shows the last in the group. VSS Sources look like
+      -- HarddiskVolumeShadowCopy1 and disk sources look like C:
       ORDER BY Source DESC
 
       -- Dedup and show results
-      SELECT *, count() > 1 AS Deduped
-       FROM results
-       GROUP BY SHA1
+      SELECT *, count() > 1 AS Deduped, SHA1 + Path AS Key
+      FROM results
+      GROUP BY Key

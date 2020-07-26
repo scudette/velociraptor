@@ -1,7 +1,7 @@
 SELECT * FROM Artifact.Windows.Sys.StartupItems() WHERE Name =~ 'msht' ORDER BY Name[
  {
   "Name": "c:\\windows\\system32\\msht.exe",
-  "FullPath": "\\HKEY_USERS\\S-1-5-21-2664065525-4027905047-788888382-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\\"c:\\windows\\system32\\msht.exe\"",
+  "FullPath": "\\HKEY_USERS\\S-1-5-21-3562079943-4177945857-798696124-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\\"c:\\windows\\system32\\msht.exe\"",
   "Command": "Hello",
   "Enabled": "disabled",
   "_Source": "Windows.Sys.StartupItems"
