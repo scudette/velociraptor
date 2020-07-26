@@ -52,12 +52,12 @@ SELECT FullPath, SHA1, Source, Deduped FROM Artifact.Windows.Search.VSS(SearchFi
   "EventID": 104,
   "Channel": "System",
   "Message =~ 'Clear'": true,
-  "Source": "_HarddiskVolumeShadowCopy2"
+  "Source": "C:"
  },
  {
   "EventID": 1102,
   "Channel": "Security",
   "Message =~ 'Clear'": true,
-  "Source": "_HarddiskVolumeShadowCopy1"
+  "Source": "C:"
  }
 ]
