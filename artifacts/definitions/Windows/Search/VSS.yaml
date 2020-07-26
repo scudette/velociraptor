@@ -23,10 +23,10 @@ sources:
       -- Given a path in either device notation or drive notation,
       -- break it into a drive and path
       LET extract_path(FullPath) = parse_string_with_regex(string=FullPath,
-         regex="^(?P<Device>\\\\\\\\.\\\\.:\\\\|.:\\\\)(?P<Path>.+)$")
+         regex="^(?P<Device>\\\\\\\\.\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy[^\\\\]+\\\\|\\\\\\\\.\\\\.:\\\\|.:\\\\)(?P<Path>.+)$")
 
       LET extract_vss(FullPath) = parse_string_with_regex(string=FullPath,
-         regex="^(?P<Device>(\\\\\\\\.\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy[^\\\\]+|\\\\\\\\.\\\\.:\\\\))")
+         regex="^(?P<Device>(\\\\\\\\.\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy[^\\\\]+\\\\|\\\\\\\\.\\\\.:\\\\))")
 
       -- Build a SearchGlob for all logical disks and VSS
       LET globs = SELECT
