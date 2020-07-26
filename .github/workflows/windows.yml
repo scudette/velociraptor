@@ -86,10 +86,10 @@ jobs:
       # happen.
       run: |
         echo Running windows specific tests.
-        output/velociraptor.exe golden artifacts/testdata/windows/ --env srcDir=./ --config artifacts/testdata/windows/github_actions.config.yaml --env srcDir=d:/a/velociraptor/velociraptor
+        output/velociraptor.exe golden artifacts/testdata/windows/ --env srcDir=d:/a/velociraptor/velociraptor --config artifacts/testdata/windows/github_actions.config.yaml --env srcDir=d:/a/velociraptor/velociraptor
 
         echo Running OS generic tests.
-        output/velociraptor.exe golden artifacts/testdata/server/testcases/ --env srcDir=./ --config artifacts/testdata/windows/github_actions.config.yaml --env srcDir=d:/a/velociraptor/velociraptor
+        output/velociraptor.exe golden artifacts/testdata/server/testcases/ --env srcDir=d:/a/velociraptor/velociraptor --config artifacts/testdata/windows/github_actions.config.yaml --env srcDir=d:/a/velociraptor/velociraptor
 
     - name: Upload Build Artifacts
       if: always()
