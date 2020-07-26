@@ -7,6 +7,9 @@ SELECT FullPath FROM glob(globs="/*", accessor="ntfs")[
  },
  {
   "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1"
+ },
+ {
+  "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy2"
  }
 ]SELECT FullPath FROM glob(globs="\\*", accessor="ntfs")[
  {
@@ -17,6 +20,9 @@ SELECT FullPath FROM glob(globs="/*", accessor="ntfs")[
  },
  {
   "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1"
+ },
+ {
+  "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy2"
  }
 ]SELECT FullPath FROM glob(globs="\\\\.\\c:\\*", accessor="ntfs") WHERE Name = "Windows"[
  {
@@ -60,6 +66,9 @@ SELECT FullPath FROM glob(globs="/*", accessor="ntfs")[
  },
  {
   "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1"
+ },
+ {
+  "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy2"
  }
 ]SELECT FullPath FROM glob(globs="\\*", accessor="lazy_ntfs")[
  {
@@ -70,6 +79,9 @@ SELECT FullPath FROM glob(globs="/*", accessor="ntfs")[
  },
  {
   "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1"
+ },
+ {
+  "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy2"
  }
 ]SELECT FullPath FROM glob(globs="\\\\.\\c:\\*", accessor="lazy_ntfs") WHERE Name = "Windows"[
  {

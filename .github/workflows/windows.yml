@@ -60,7 +60,7 @@ jobs:
       # previously cleared logs (but in VSS).
       run: |
         vssadmin create shadow /for=c:
-        echo "VSStest2 with more data" >> c:\Users\test2.txt
+        echo "VSStest2 with more data" > c:\Users\test2.txt
         echo Clearing the event logs
         wevtutil.exe cl System
 
@@ -85,6 +85,8 @@ jobs:
       # hopefulling the unit tests take long enough for this to
       # happen.
       run: |
+        vssadmin create shadow /for=c:
+
         echo Running OS generic tests.
         output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\server\testcases\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
 
@@ -92,8 +94,6 @@ jobs:
       shell: cmd
       if: always()
       run: |
-        vssadmin create shadow /for=c:
-
         echo Running windows specific tests.
         output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\windows\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
 
