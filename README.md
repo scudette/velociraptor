@@ -126,16 +126,22 @@ feature submitted that you are really interested in, we would love to
 have more testing prior to the official release.
 
 We have a CI pipeline managed by GitHub actions. You can see the
-pipeline by clicking the actions tab on our GitHub pages. There are
+pipeline by clicking the actions tab on our GitHub project. There are
 two workflows:
 
 1. Windows Test: this workflow build a minimal version of the
    Velociraptor binary (without the GUI) and runs all the tests on
    it. We also test various windows support functions in this
-   pipeline.
+   pipeline. This pipeline builds on evert push in each PR.
 
 2. Linux Build All Arches: This pipeline builds complete binaries for
-   many supported architectures.
+   many supported architectures. It only runs when the PR is merged
+   into the master branch.
+
+If you fork the project on GitHub, the pipelines will run on your own
+fork as well. If you need to prepare a PR for a new feature or modify
+an existing feature you can use this to build your own binaries for
+testing on all architectures.
 
 
 ## Getting help
