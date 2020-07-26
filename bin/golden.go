@@ -165,8 +165,6 @@ func doGolden() {
 		"%s*.in.yaml", *golden_command_prefix))
 	kingpin.FatalIfError(err, "Glob")
 
-	logger := log.New(os.Stderr, "golden: ", 0)
-
 	mu := sync.Mutex{}
 	failures := []string{}
 	wg := sync.WaitGroup{}
@@ -177,6 +175,8 @@ func doGolden() {
 
 		go func() {
 			defer wg.Done()
+
+			logger := log.New(os.Stderr, "golden: ", 0)
 
 			logger.Printf("Openning %v", filename)
 			data, err := ioutil.ReadFile(filename)
