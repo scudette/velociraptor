@@ -213,7 +213,7 @@ func doGolden() {
 			}
 
 			if *testonly {
-				continue
+				return
 			}
 
 			err = ioutil.WriteFile(
