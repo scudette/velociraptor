@@ -27,7 +27,7 @@ SELECT FullPath, SHA1, Source, Deduped FROM Artifact.Windows.Search.VSS(SearchFi
  {
   "EventID": 7045,
   "ServiceName": "TestingDetection2",
-  "Source": "_HarddiskVolumeShadowCopy2"
+  "Source": "C:"
  }
 ]SELECT EventID, Channel, Message=~ 'Clear',Source FROM Artifact.Windows.EventLogs.Cleared( SearchVSS="True")[
  {
