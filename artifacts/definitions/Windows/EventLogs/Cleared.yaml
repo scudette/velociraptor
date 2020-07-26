@@ -86,7 +86,7 @@ sources:
                     ( EventID = 1102 AND Channel = 'Security' ) OR
                     ( EventID = 104 AND Message =~ 'Log clear' )
             })
-            ORDER BY Source
+            ORDER BY Source DESC
 
       # Group results for deduplication
       - LET grouped = SELECT *
