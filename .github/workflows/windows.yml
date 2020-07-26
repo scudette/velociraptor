@@ -93,12 +93,12 @@ jobs:
         dir d:\a\velociraptor\velociraptor\artifacts\testdata\server
 
         echo Running OS generic tests.
-        echo output\velociraptor.exe golden D:\a\velociraptor\velociraptor\artifacts\testdata\server\testcases\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
+        echo output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\server\testcases\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
 
-        output\velociraptor.exe golden D:\a\velociraptor\velociraptor\artifacts\testdata\server\testcases\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
+        output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\server\testcases\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
 
         echo Running windows specific tests.
-        output\velociraptor.exe golden D:\a\velociraptor\velociraptor\artifacts\testdata\windows\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
+        output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\windows\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
 
 
     - name: Upload Build Artifacts
