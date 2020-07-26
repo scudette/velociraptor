@@ -5,26 +5,41 @@ SELECT FullPath, SHA1, Source, Deduped FROM Artifact.Windows.Search.VSS(SearchFi
   "Source": "\\\\.\\C:\\Users\\test.txt",
   "Deduped": true
  }
-]SELECT FullPath, SHA1, Source, Deduped FROM Artifact.Windows.Search.VSS(SearchFilesGlob='c:\\Users\\test2.txt')[]SELECT FullPath, Data FROM glob(globs="/*/Users/test2.txt", accessor="ntfs")[
+]SELECT FullPath, SHA1, Source, Deduped FROM Artifact.Windows.Search.VSS(SearchFilesGlob='c:\\Users\\test2.txt')[]SELECT EventID,ServiceName,Source FROM Artifact.Windows.EventLogs.ServiceCreationComspec( EventLog="C:\\Windows\\system32\\winevt\\logs\\System.evtx", SearchVSS="True")[
  {
-  "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Users\\test2.txt",
-  "Data": {
-   "mft": "1145299-128-1",
-   "name_type": "DOS+Win32"
-  }
+  "EventID": 7045,
+  "ServiceName": "TestingDetection2",
+  "Source": "\\\\.\\C:\\Windows\\System32\\winevt\\Logs\\System.evtx"
+ }
+]SELECT EventID, Channel, Message=~ 'Clear',Source FROM Artifact.Windows.EventLogs.Cleared( SearchVSS="True")[
+ {
+  "EventID": 104,
+  "Channel": "System",
+  "Message =~ 'Clear'": true,
+  "Source": "HarddiskVolumeShadowCopy1"
  },
  {
-  "FullPath": "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy2\\Users\\test2.txt",
-  "Data": {
-   "mft": "1145299-128-1",
-   "name_type": "DOS+Win32"
-  }
+  "EventID": 104,
+  "Channel": "Application",
+  "Message =~ 'Clear'": true,
+  "Source": "HarddiskVolumeShadowCopy1"
  },
  {
-  "FullPath": "\\\\.\\C:\\Users\\test2.txt",
-  "Data": {
-   "mft": "1145299-128-1",
-   "name_type": "DOS+Win32"
-  }
+  "EventID": 104,
+  "Channel": "Setup",
+  "Message =~ 'Clear'": true,
+  "Source": "HarddiskVolumeShadowCopy1"
+ },
+ {
+  "EventID": 104,
+  "Channel": "System",
+  "Message =~ 'Clear'": true,
+  "Source": "\\\\.\\C:\\Windows\\System32\\winevt\\Logs\\System.evtx"
+ },
+ {
+  "EventID": 1102,
+  "Channel": "Security",
+  "Message =~ 'Clear'": true,
+  "Source": "\\\\.\\C:\\Windows\\System32\\winevt\\Logs\\Security.evtx"
  }
 ]

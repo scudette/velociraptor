@@ -39,12 +39,14 @@ jobs:
             cd ../../
 
     - name: Build All Architectures
+      # Uncomment the architectures you want here. NOTE: DarwinBase
+      # does not include yara or modules with C compilers needed.
       run: |
         mkdir ./output/
         export PATH=$PATH:~/go/bin/
         go run make.go -v Linux
         go run make.go -v Windows
-        go run make.go -v Windowsx86
+        echo skipping go run make.go -v Windowsx86
         go run make.go -v DarwinBase
 
     - name: StoreBinaries

@@ -42,7 +42,6 @@ jobs:
         sc.exe create TestingDetection1 binPath="%COMSPEC% /Q /c echo 'COMSPEC testing 1"
         echo "VSStest" > c:\Users\test.txt
         echo "VSStest2" > c:\Users\test2.txt
-        vssadmin create shadow /for=c:
         regedit /S artifacts/testdata/windows/init.reg
 
     - name: Build
@@ -59,12 +58,20 @@ jobs:
     - name: Prepare second stage
       if: always()
       shell: cmd
+      # We have to wait a short time between the service creation
+      # event to be flushed to disk. Hopefully building the test
+      # binary takes long enough.
+
+      # Creating a second service - in the end we have
+      # TestingDetection2 in current logs, TestingDetection1 in
+      # previously cleared logs (but in VSS).
       run: |
+        vssadmin create shadow /for=c:
         echo "VSStest2 with more data" >> c:\Users\test2.txt
         echo Clearing the event logs
         wevtutil.exe cl System
 
-        echo Creating a second service
+        echo Create second service.
         sc.exe create TestingDetection2 binPath="%COMSPEC% /Q /c echo 'COMSPEC testing 2"
 
         echo Making a new VSS copy
@@ -84,6 +91,9 @@ jobs:
     - name: Test Golden
       shell: bash
       if: always()
+      # We depend on the second service logs to be flushed to disk -
+      # hopefulling the unit tests take long enough for this to
+      # happen.
       run: |
         output/velociraptor.exe golden artifacts/testdata/windows/ --env srcDir=./ --config artifacts/testdata/windows/test.config.yaml --env srcDir=d:/a/velociraptor/velociraptor
         output/velociraptor.exe golden artifacts/testdata/server/testcases/ --env srcDir=./ --config artifacts/testdata/windows/test.config.yaml --env srcDir=d:/a/velociraptor/velociraptor
