@@ -37,6 +37,7 @@ import (
 	config_proto "www.velocidex.com/golang/velociraptor/config/proto"
 	"www.velocidex.com/golang/velociraptor/constants"
 	flows_proto "www.velocidex.com/golang/velociraptor/flows/proto"
+	logging "www.velocidex.com/golang/velociraptor/logging"
 	"www.velocidex.com/golang/velociraptor/reporting"
 	"www.velocidex.com/golang/velociraptor/services"
 	vql_subsystem "www.velocidex.com/golang/velociraptor/vql"
@@ -85,11 +86,10 @@ func vqlCollectorArgsFromFixture(
 	return vql_collector_args
 }
 
-func runTest(fixture *testFixture) (string, error) {
-	config_obj, err := DefaultConfigLoader.LoadAndValidate()
-	kingpin.FatalIfError(err, "Unable to load config file")
+func runTest(fixture *testFixture,
+	config_obj *config_proto.Config) (string, error) {
 
-	err = services.StartJournalService(config_obj)
+	err := services.StartJournalService(config_obj)
 	kingpin.FatalIfError(err, "Unable to start services")
 
 	// Create an output container.
@@ -161,6 +161,12 @@ func runTest(fixture *testFixture) (string, error) {
 }
 
 func doGolden() {
+	config_obj, err := DefaultConfigLoader.LoadAndValidate()
+	kingpin.FatalIfError(err, "Can not create output container")
+
+	logger := logging.GetLogger(config_obj, &logging.ToolComponent)
+	logger.Info("Starting golden file test.")
+
 	globs, err := filepath.Glob(fmt.Sprintf(
 		"%s*.in.yaml", *golden_command_prefix))
 	kingpin.FatalIfError(err, "Glob")
@@ -186,7 +192,7 @@ func doGolden() {
 			err = yaml.Unmarshal(data, &fixture)
 			kingpin.FatalIfError(err, "Unmarshal input file")
 
-			result, err := runTest(&fixture)
+			result, err := runTest(&fixture, config_obj)
 			kingpin.FatalIfError(err, "Running test")
 
 			outfile := strings.Replace(filename, ".in.", ".out.", -1)
