@@ -91,7 +91,7 @@ jobs:
     - name: Test Golden Windows
       shell: cmd
       if: always()
-      run |
+      run: |
         echo Running windows specific tests.
         output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\windows\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
 
