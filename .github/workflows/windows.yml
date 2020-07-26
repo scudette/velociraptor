@@ -78,28 +78,22 @@ jobs:
       run: |
         go test -v ./...
 
-    - name: Test Golden
+    - name: Test Golden Generic
       shell: cmd
       if: always()
       # We depend on the second service logs to be flushed to disk -
       # hopefulling the unit tests take long enough for this to
       # happen.
       run: |
-        dir D:\a\
-        dir D:\a\velociraptor\
-        dir D:\a\velociraptor\velociraptor\
-
-        dir D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
-        dir d:\a\velociraptor\velociraptor\artifacts\testdata\server
-
         echo Running OS generic tests.
-        echo output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\server\testcases\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
-
         output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\server\testcases\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
 
+    - name: Test Golden Windows
+      shell: cmd
+      if: always()
+      run |
         echo Running windows specific tests.
         output\velociraptor.exe -v golden D:\a\velociraptor\velociraptor\artifacts\testdata\windows\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
-
 
     - name: Upload Build Artifacts
       if: always()

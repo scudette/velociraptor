@@ -248,7 +248,7 @@ func Windows() error {
 func WindowsDev() error {
 	return Builder{
 		goos:       "windows",
-		extra_tags: " release ",
+		extra_tags: " release yara ",
 		filename:   "velociraptor.exe",
 		arch:       "amd64"}.Run()
 }
