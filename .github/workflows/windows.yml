@@ -74,9 +74,6 @@ jobs:
         echo Create second service.
         sc.exe create TestingDetection2 binPath="%COMSPEC% /Q /c echo 'COMSPEC testing 2"
 
-        echo Making a new VSS copy
-        vssadmin create shadow /for=c:
-
     - name: Test
       shell: bash
       if: always()
