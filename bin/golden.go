@@ -161,7 +161,7 @@ func runTest(fixture *testFixture,
 
 func doGolden() {
 	config_obj, err := DefaultConfigLoader.LoadAndValidate()
-	kingpin.FatalIfError(err, "Can not create output container")
+	kingpin.FatalIfError(err, "Can not load configuration.")
 
 	logger := logging.GetLogger(config_obj, &logging.ToolComponent)
 	logger.Info("Starting golden file test.")
@@ -172,7 +172,6 @@ func doGolden() {
 
 	failures := []string{}
 
-	// Run all the files in parallel.
 	for _, filename := range globs {
 		logger := log.New(os.Stderr, "golden: ", 0)
 

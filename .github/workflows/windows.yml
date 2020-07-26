@@ -85,6 +85,10 @@ jobs:
       # hopefulling the unit tests take long enough for this to
       # happen.
       run: |
+        dir D:\a\
+        dir D:\a\velociraptor\
+        dir D:\a\velociraptor\velociraptor\
+
         echo Running windows specific tests.
         output\velociraptor.exe golden D:\a\velociraptor\velociraptor\artifacts\testdata\windows\ --env srcDir=d:\a\velociraptor\velociraptor\ --config D:\a\velociraptor\velociraptor\artifacts\testdata\windows\github_actions.config.yaml
 
