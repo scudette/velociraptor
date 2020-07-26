@@ -58,18 +58,24 @@ jobs:
 
     - name: Prepare second stage
       if: always()
+      shell: cmd
       run: |
-        echo "VSStest2" >> c:\Users\test2.txt
+        echo "VSStest2 with more data" >> c:\Users\test2.txt
+        echo Clearing the event logs
         wevtutil.exe cl System
+
+        echo Creating a second service
         sc.exe create TestingDetection2 binPath="%COMSPEC% /Q /c echo 'COMSPEC testing 2"
+
+        echo Making a new VSS copy
         vssadmin create shadow /for=c:
 
     - name: Test
       shell: bash
       if: always()
       env:
-        # Disable CGO for building tests - it takes too long (mainly
-        # disables Yara building again).
+        # Disable CGO for building tests - it takes too long and it is
+        # not needed (mainly disables Yara building again).
         CGO_ENABLED: "0"
 
       run: |
