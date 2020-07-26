@@ -179,7 +179,7 @@ func doGolden() {
 	for _, filename := range globs {
 		wg.Add(1)
 
-		go func() {
+		go func(filename string) {
 			defer wg.Done()
 
 			logger := log.New(os.Stderr, "golden: ", 0)
@@ -226,7 +226,7 @@ func doGolden() {
 				outfile,
 				[]byte(result), 0666)
 			kingpin.FatalIfError(err, "Unable to write golden file")
-		}()
+		}(filename)
 	}
 
 	wg.Wait()
