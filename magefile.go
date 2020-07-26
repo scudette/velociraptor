@@ -257,7 +257,7 @@ func WindowsTest() error {
 	return Builder{
 		goos:        "windows",
 		disable_cgo: false,
-		extra_tags: " release yara "
+		extra_tags:  " release yara ",
 		filename:    "velociraptor.exe",
 		arch:        "amd64"}.Run()
 }
