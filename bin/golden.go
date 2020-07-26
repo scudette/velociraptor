@@ -25,7 +25,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/Velocidex/ordereddict"
@@ -171,65 +170,49 @@ func doGolden() {
 		"%s*.in.yaml", *golden_command_prefix))
 	kingpin.FatalIfError(err, "Glob")
 
-	mu := sync.Mutex{}
 	failures := []string{}
-	wg := sync.WaitGroup{}
 
 	// Run all the files in parallel.
 	for _, filename := range globs {
-		wg.Add(1)
+		logger := log.New(os.Stderr, "golden: ", 0)
 
-		go func(filename string) {
-			defer wg.Done()
+		logger.Printf("Openning %v", filename)
+		data, err := ioutil.ReadFile(filename)
+		kingpin.FatalIfError(err, "Reading file")
 
-			logger := log.New(os.Stderr, "golden: ", 0)
+		fixture := testFixture{}
+		err = yaml.Unmarshal(data, &fixture)
+		kingpin.FatalIfError(err, "Unmarshal input file")
 
-			logger.Printf("Openning %v", filename)
-			data, err := ioutil.ReadFile(filename)
-			kingpin.FatalIfError(err, "Reading file")
+		result, err := runTest(&fixture, config_obj)
+		kingpin.FatalIfError(err, "Running test")
 
-			fixture := testFixture{}
-			err = yaml.Unmarshal(data, &fixture)
-			kingpin.FatalIfError(err, "Unmarshal input file")
+		outfile := strings.Replace(filename, ".in.", ".out.", -1)
+		old_data, err := ioutil.ReadFile(outfile)
+		if err == nil {
+			if strings.TrimSpace(string(old_data)) != strings.TrimSpace(result) {
+				dmp := diffmatchpatch.New()
+				diffs := dmp.DiffMain(
+					string(old_data), result, false)
+				fmt.Printf("Failed %v:\n", filename)
+				fmt.Println(dmp.DiffPrettyText(diffs))
 
-			result, err := runTest(&fixture, config_obj)
-			kingpin.FatalIfError(err, "Running test")
-
-			outfile := strings.Replace(filename, ".in.", ".out.", -1)
-			old_data, err := ioutil.ReadFile(outfile)
-			if err == nil {
-				if strings.TrimSpace(string(old_data)) != strings.TrimSpace(result) {
-					dmp := diffmatchpatch.New()
-					diffs := dmp.DiffMain(
-						string(old_data), result, false)
-					fmt.Printf("Failed %v:\n", filename)
-					fmt.Println(dmp.DiffPrettyText(diffs))
-
-					mu.Lock()
-					failures = append(failures, filename)
-					mu.Unlock()
-				}
-			} else {
-				fmt.Printf("New file for  %v:\n", filename)
-				fmt.Println(result)
-
-				mu.Lock()
 				failures = append(failures, filename)
-				mu.Unlock()
 			}
+		} else {
+			fmt.Printf("New file for  %v:\n", filename)
+			fmt.Println(result)
 
-			if *testonly {
-				return
-			}
+			failures = append(failures, filename)
+		}
 
+		if !*testonly {
 			err = ioutil.WriteFile(
 				outfile,
 				[]byte(result), 0666)
 			kingpin.FatalIfError(err, "Unable to write golden file")
-		}(filename)
+		}
 	}
-
-	wg.Wait()
 
 	if len(failures) > 0 {
 		kingpin.Fatalf(

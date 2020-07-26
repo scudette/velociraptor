@@ -20,13 +20,6 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
-    - name: Cache golang packages
-      uses: actions/cache@v2
-      with:
-        path: |
-          $GOPATH/pkg/
-        key: ${{ runner.os }}-${{ hashFiles('go.mod') }}
-
     - name: Configure test environment
       shell: cmd
       if: always()
