@@ -84,6 +84,10 @@ jobs:
       # We depend on the second service logs to be flushed to disk -
       # hopefulling the unit tests take long enough for this to
       # happen.
+
+      # Create a second VSS right before testing - in most cases the
+      # second VSS is identical to C: and VSS artifacts should
+      # **always** prefer to emit C: based locations over VSS paths.
       run: |
         vssadmin create shadow /for=c:
 
