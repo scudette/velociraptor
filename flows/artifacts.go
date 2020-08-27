@@ -222,6 +222,10 @@ func ArtifactCollectorProcessOneMessage(
 		return err
 	}
 
+	if config_obj.Frontend.DropIncomingRequests {
+		return nil
+	}
+
 	// Handle the response depending on the RequestId
 	switch message.RequestId {
 	case constants.TransferWellKnownFlowId:

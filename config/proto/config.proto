@@ -453,6 +453,9 @@ message FrontendConfig {
     // less latency to respond to client events but also means more
     // TLS handshake and network overheads due to frequent POST.
     uint64 client_event_max_wait = 23;
+
+    // Loadshed any incoming requests.
+    bool drop_incoming_requests = 25;
 }
 
 
