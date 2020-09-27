@@ -46,6 +46,10 @@ jobs:
         mkdir gui/static/dist/
         echo > gui/static/dist/third-party.bundle.js
         echo > gui/static/dist/grr-ui.bundle.js
+        cd gui/velociraptor/
+        npm i
+        npm run build
+        cd ../../
         go run make.go -v WindowsTest
 
     - name: Prepare second stage
