@@ -316,7 +316,7 @@ class ShellViewer extends Component {
         }
 
         var artifact = "";
-        if (this.state.shell_type == "Powershell") {
+        if (this.state.shell_type === "Powershell") {
             artifact = "Windows.System.PowerShell";
         } else if(this.state.shell_type === "Cmd") {
             artifact = "Windows.System.CmdShell";

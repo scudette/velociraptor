@@ -40,8 +40,6 @@ export default class VeloFileDetails extends React.Component {
             _Data: {},
         }, this.props.selectedRow);
 
-        let client_id = this.props.client && this.props.client.client_id;
-
         return (
             <div className="padded">
               <grr-breadcrumbs path="controller.fileContext.selectedFilePath">

@@ -78,9 +78,9 @@ class VeloFileStats extends Component {
                           <dd className="col-8">
                             <grr-timestamp value="controller.fileContext.selectedRow.Download.mtime">
                             </grr-timestamp>
-                            <a ng-click="controller.downloadFile()" href="#" >
+                            <button ng-click="controller.downloadFile()"  >
                               <i className="fa fa-download"></i>Download
-                            </a>
+                            </button>
                           </dd>
                         </div>
                       }
