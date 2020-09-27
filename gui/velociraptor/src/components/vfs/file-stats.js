@@ -78,14 +78,14 @@ class VeloFileStats extends Component {
                           <dd className="col-8">
                             <grr-timestamp value="controller.fileContext.selectedRow.Download.mtime">
                             </grr-timestamp>
-                            <a ng-click="controller.downloadFile()">
+                            <a ng-click="controller.downloadFile()" href="#" >
                               <i className="fa fa-download"></i>Download
                             </a>
                           </dd>
                         </div>
                       }
 
-                      { selectedRow.Mode[0] == '-' && client_id &&
+                      { selectedRow.Mode[0] === '-' && client_id &&
                         <div>
                           <dt className="col-4">Fetch from Client</dt>
                           <dd className="col-8">
