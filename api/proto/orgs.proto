@@ -9,3 +9,7 @@ message OrgRecord {
     string nonce = 2;
     string org_id = 3;
 }
+
+message Organizations {
+    repeated OrgRecord orgs = 1;
+}

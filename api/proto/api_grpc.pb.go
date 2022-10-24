@@ -45,6 +45,8 @@ type APIClient interface {
 	SetGUIOptions(ctx context.Context, in *SetGUIOptionsRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// List all the GUI users known on this server.
 	GetUsers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Users, error)
+	// List all the Organizations known on this server.
+	GetOrganizations(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Organizations, error)
 	GetUserFavorites(ctx context.Context, in *Favorite, opts ...grpc.CallOption) (*Favorites, error)
 	SetPassword(ctx context.Context, in *SetPasswordRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// VFS
@@ -268,6 +270,15 @@ func (c *aPIClient) SetGUIOptions(ctx context.Context, in *SetGUIOptionsRequest,
 func (c *aPIClient) GetUsers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Users, error) {
 	out := new(Users)
 	err := c.cc.Invoke(ctx, "/proto.API/GetUsers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *aPIClient) GetOrganizations(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Organizations, error) {
+	out := new(Organizations)
+	err := c.cc.Invoke(ctx, "/proto.API/GetOrganizations", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -743,6 +754,8 @@ type APIServer interface {
 	SetGUIOptions(context.Context, *SetGUIOptionsRequest) (*emptypb.Empty, error)
 	// List all the GUI users known on this server.
 	GetUsers(context.Context, *emptypb.Empty) (*Users, error)
+	// List all the Organizations known on this server.
+	GetOrganizations(context.Context, *emptypb.Empty) (*Organizations, error)
 	GetUserFavorites(context.Context, *Favorite) (*Favorites, error)
 	SetPassword(context.Context, *SetPasswordRequest) (*emptypb.Empty, error)
 	// VFS
@@ -866,6 +879,9 @@ func (UnimplementedAPIServer) SetGUIOptions(context.Context, *SetGUIOptionsReque
 }
 func (UnimplementedAPIServer) GetUsers(context.Context, *emptypb.Empty) (*Users, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUsers not implemented")
+}
+func (UnimplementedAPIServer) GetOrganizations(context.Context, *emptypb.Empty) (*Organizations, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrganizations not implemented")
 }
 func (UnimplementedAPIServer) GetUserFavorites(context.Context, *Favorite) (*Favorites, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserFavorites not implemented")
@@ -1314,6 +1330,24 @@ func _API_GetUsers_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(APIServer).GetUsers(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _API_GetOrganizations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(APIServer).GetOrganizations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.API/GetOrganizations",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(APIServer).GetOrganizations(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2190,6 +2224,10 @@ var API_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUsers",
 			Handler:    _API_GetUsers_Handler,
+		},
+		{
+			MethodName: "GetOrganizations",
+			Handler:    _API_GetOrganizations_Handler,
 		},
 		{
 			MethodName: "GetUserFavorites",

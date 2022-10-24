@@ -501,6 +501,26 @@ func (mr *MockAPIClientMockRecorder) GetNotebooks(arg0, arg1 interface{}, arg2 .
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNotebooks", reflect.TypeOf((*MockAPIClient)(nil).GetNotebooks), varargs...)
 }
 
+// GetOrganizations mocks base method.
+func (m *MockAPIClient) GetOrganizations(arg0 context.Context, arg1 *emptypb.Empty, arg2 ...grpc.CallOption) (*proto0.Organizations, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetOrganizations", varargs...)
+	ret0, _ := ret[0].(*proto0.Organizations)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetOrganizations indicates an expected call of GetOrganizations.
+func (mr *MockAPIClientMockRecorder) GetOrganizations(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetOrganizations", reflect.TypeOf((*MockAPIClient)(nil).GetOrganizations), varargs...)
+}
+
 // GetReport mocks base method.
 func (m *MockAPIClient) GetReport(arg0 context.Context, arg1 *proto0.GetReportRequest, arg2 ...grpc.CallOption) (*proto0.GetReportResponse, error) {
 	m.ctrl.T.Helper()

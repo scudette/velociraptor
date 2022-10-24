@@ -17,6 +17,7 @@ import "hunts.proto";
 import "flows.proto";
 import "notebooks.proto";
 import "users.proto";
+import "orgs.proto";
 import "csv.proto";
 import "download.proto";
 import "completions.proto";
@@ -222,6 +223,13 @@ service API {
     rpc GetUsers(google.protobuf.Empty) returns(Users) {
         option (google.api.http) = {
             get: "/api/v1/GetUsers",
+        };
+    }
+
+    // List all the Organizations known on this server.
+    rpc GetOrganizations(google.protobuf.Empty) returns(Organizations) {
+        option (google.api.http) = {
+            get: "/api/v1/GetOrganizations",
         };
     }
 

@@ -80,6 +80,53 @@ func (x *OrgRecord) GetOrgId() string {
 	return ""
 }
 
+type Organizations struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Orgs []*OrgRecord `protobuf:"bytes,1,rep,name=orgs,proto3" json:"orgs,omitempty"`
+}
+
+func (x *Organizations) Reset() {
+	*x = Organizations{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_orgs_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Organizations) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Organizations) ProtoMessage() {}
+
+func (x *Organizations) ProtoReflect() protoreflect.Message {
+	mi := &file_orgs_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Organizations.ProtoReflect.Descriptor instead.
+func (*Organizations) Descriptor() ([]byte, []int) {
+	return file_orgs_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Organizations) GetOrgs() []*OrgRecord {
+	if x != nil {
+		return x.Orgs
+	}
+	return nil
+}
+
 var File_orgs_proto protoreflect.FileDescriptor
 
 var file_orgs_proto_rawDesc = []byte{
@@ -89,10 +136,14 @@ var file_orgs_proto_rawDesc = []byte{
 	0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x6e, 0x6f, 0x6e, 0x63, 0x65, 0x18, 0x02, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x05, 0x6e, 0x6f, 0x6e, 0x63, 0x65, 0x12, 0x15, 0x0a, 0x06, 0x6f, 0x72,
 	0x67, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6f, 0x72, 0x67, 0x49,
-	0x64, 0x42, 0x31, 0x5a, 0x2f, 0x77, 0x77, 0x77, 0x2e, 0x76, 0x65, 0x6c, 0x6f, 0x63, 0x69, 0x64,
-	0x65, 0x78, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x67, 0x6f, 0x6c, 0x61, 0x6e, 0x67, 0x2f, 0x76, 0x65,
-	0x6c, 0x6f, 0x63, 0x69, 0x72, 0x61, 0x70, 0x74, 0x6f, 0x72, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x64, 0x22, 0x35, 0x0a, 0x0d, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x73, 0x12, 0x24, 0x0a, 0x04, 0x6f, 0x72, 0x67, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x10, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4f, 0x72, 0x67, 0x52, 0x65, 0x63, 0x6f,
+	0x72, 0x64, 0x52, 0x04, 0x6f, 0x72, 0x67, 0x73, 0x42, 0x31, 0x5a, 0x2f, 0x77, 0x77, 0x77, 0x2e,
+	0x76, 0x65, 0x6c, 0x6f, 0x63, 0x69, 0x64, 0x65, 0x78, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x67, 0x6f,
+	0x6c, 0x61, 0x6e, 0x67, 0x2f, 0x76, 0x65, 0x6c, 0x6f, 0x63, 0x69, 0x72, 0x61, 0x70, 0x74, 0x6f,
+	0x72, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -107,16 +158,18 @@ func file_orgs_proto_rawDescGZIP() []byte {
 	return file_orgs_proto_rawDescData
 }
 
-var file_orgs_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_orgs_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_orgs_proto_goTypes = []interface{}{
-	(*OrgRecord)(nil), // 0: proto.OrgRecord
+	(*OrgRecord)(nil),     // 0: proto.OrgRecord
+	(*Organizations)(nil), // 1: proto.Organizations
 }
 var file_orgs_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: proto.Organizations.orgs:type_name -> proto.OrgRecord
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_orgs_proto_init() }
@@ -137,6 +190,18 @@ func file_orgs_proto_init() {
 				return nil
 			}
 		}
+		file_orgs_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Organizations); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -144,7 +209,7 @@ func file_orgs_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_orgs_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
