@@ -46,6 +46,15 @@ message VelociraptorUser {
     string current_org = 12;
 }
 
+message ChangeUserRequest {
+	VelociraptorUser User = 1 [(sem_type) = {
+		description: "The user to be created or changed.  Password fields will be ignored."
+	}];
+	string password = 2 [(sem_type) = {
+		description: "The cleartext password."
+	}];
+}
+
 message UserRequest {
     string name = 1;
 }
