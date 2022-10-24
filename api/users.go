@@ -120,6 +120,37 @@ func (self *ApiServer) GetUsers(
 	return result, nil
 }
 
+func (self *ApiServer) GetUser(
+	ctx context.Context, in *api_proto.UserRequest) (*api_proto.VelociraptorUser, error) {
+
+	users_manager := services.GetUserManager()
+	user_record, org_config_obj, err := users_manager.GetUserFromContext(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if user_record.Name != in.Name {
+		permissions := acls.SERVER_ADMIN
+		perm, err := acls.CheckAccess(org_config_obj, user_record.Name, permissions)
+		if !perm || err != nil {
+			return nil, status.Error(codes.PermissionDenied,
+				"User is not allowed to view this user.")
+		}
+	}
+
+	user, err := users_manager.GetUser(ctx, in.Name)
+	if err != nil {
+		return nil, err
+	}
+
+	user.Permissions, err = acls.GetPolicy(org_config_obj, in.Name)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
 func (self *ApiServer) GetUserFavorites(
 	ctx context.Context,
 	in *api_proto.Favorite) (*api_proto.Favorites, error) {

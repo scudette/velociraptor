@@ -46,6 +46,10 @@ message VelociraptorUser {
     string current_org = 12;
 }
 
+message UserRequest {
+    string name = 1;
+}
+
 message GetUsersRequest {
 	bool with_roles = 1 [(sem_type) = {
 		description: "Include roles for each user (requires admin permissions)."
