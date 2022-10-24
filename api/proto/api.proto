@@ -220,9 +220,13 @@ service API {
     }
 
     // List all the GUI users known on this server.
-    rpc GetUsers(google.protobuf.Empty) returns(Users) {
+    rpc GetUsers(GetUsersRequest) returns(Users) {
         option (google.api.http) = {
             get: "/api/v1/GetUsers",
+            additional_bindings: {
+                post: "/api/v1/GetUsers",
+                body: "*"
+            }
         };
     }
 

@@ -46,6 +46,15 @@ message VelociraptorUser {
     string current_org = 12;
 }
 
+message GetUsersRequest {
+	bool with_roles = 1 [(sem_type) = {
+		description: "Include roles for each user (requires admin permissions)."
+	}];
+	repeated Org orgs = 2 [(sem_type) = {
+		description: "Only show users within the specified orgs"
+	}];
+}
+
 
 // These traits are used to control the GUI App. Many of these fields
 // are constructed from the VelociraptorUser, the config file, the

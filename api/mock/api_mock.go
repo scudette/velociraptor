@@ -662,7 +662,7 @@ func (mr *MockAPIClientMockRecorder) GetUserUITraits(arg0, arg1 interface{}, arg
 }
 
 // GetUsers mocks base method.
-func (m *MockAPIClient) GetUsers(arg0 context.Context, arg1 *emptypb.Empty, arg2 ...grpc.CallOption) (*proto0.Users, error) {
+func (m *MockAPIClient) GetUsers(arg0 context.Context, arg1 *proto0.GetUsersRequest, arg2 ...grpc.CallOption) (*proto0.Users, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0, arg1}
 	for _, a := range arg2 {
