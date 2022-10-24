@@ -349,6 +349,46 @@ func (self *ApiServer) UpdateUser(ctx context.Context,
 	return self.ChangeUser(ctx, in, false)
 }
 
+func (self *ApiServer) DeleteUser(
+	ctx context.Context,
+	in *api_proto.UserRequest) (*emptypb.Empty, error) {
+
+	users_manager := services.GetUserManager()
+	active_user, org_config_obj, err := users_manager.GetUserFromContext(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	permissions := acls.SERVER_ADMIN
+	perm, err := acls.CheckAccess(org_config_obj, active_user.Name, permissions)
+	if !perm || err != nil {
+		return nil, status.Error(codes.PermissionDenied,
+			"User is not allowed to delete users.")
+	}
+
+	user_record, err := users_manager.GetUserWithHashes(ctx, in.Name)
+	if err == services.UserNotFoundError {
+		return nil, status.Errorf(codes.NotFound, "User %s does not exist.", in.Name)
+	}
+
+	org_admin, err := acls.CheckAccess(org_config_obj, active_user.Name, acls.ORG_ADMIN)
+	if err != nil {
+		return nil, err
+	}
+
+	if !org_admin && checkOrgMembership(user_record.Orgs, active_user.Orgs) == false {
+		return nil, status.Error(codes.PermissionDenied,
+			"User is not allowed to remove users without the org admin role or being a member of all orgs.")
+	}
+
+	err = users_manager.DeleteUser(ctx, org_config_obj, in.Name)
+	if err != nil {
+		return nil, err
+	}
+
+	return &emptypb.Empty{}, nil
+}
+
 func (self *ApiServer) GetUser(
 	ctx context.Context, in *api_proto.UserRequest) (*api_proto.VelociraptorUser, error) {
 
