@@ -57,13 +57,13 @@ func (self *ApiServer) SetPassword(
 type userByName []*api_proto.VelociraptorUser
 
 func (s userByName) Len() int {
-    return len(s)
+	return len(s)
 }
 func (s userByName) Swap(i, j int) {
-    s[i], s[j] = s[j], s[i]
+	s[i], s[j] = s[j], s[i]
 }
 func (s userByName) Less(i, j int) bool {
-    return s[i].Name < s[j].Name
+	return s[i].Name < s[j].Name
 }
 
 func (self *ApiServer) GetUsers(
@@ -83,6 +83,26 @@ func (self *ApiServer) GetUsers(
 	users, err := users.ListUsers(ctx, principal, []string{org_config_obj.OrgId})
 	if err != nil {
 		return nil, Status(self.verbose, err)
+	}
+
+	if filterOrgs {
+		newUsers := []*api_proto.VelociraptorUser{}
+		callerOrgs := map[string]bool{}
+		for _, org := range user_record.Orgs {
+			callerOrgs[org.Id] = true
+
+		}
+
+		for _, user := range users {
+			for _, org := range user.Orgs {
+				_, found := callerOrgs[org.Id]
+				if found {
+					newUsers = append(newUsers, user)
+					break
+				}
+			}
+		}
+		users = newUsers
 	}
 
 	sort.Sort(userByName(users))
