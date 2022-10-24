@@ -1,6 +1,8 @@
 package api
 
 import (
+	"sort"
+
 	"github.com/sirupsen/logrus"
 	context "golang.org/x/net/context"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -52,6 +54,18 @@ func (self *ApiServer) SetPassword(
 	return &emptypb.Empty{}, nil
 }
 
+type userByName []*api_proto.VelociraptorUser
+
+func (s userByName) Len() int {
+    return len(s)
+}
+func (s userByName) Swap(i, j int) {
+    s[i], s[j] = s[j], s[i]
+}
+func (s userByName) Less(i, j int) bool {
+    return s[i].Name < s[j].Name
+}
+
 func (self *ApiServer) GetUsers(
 	ctx context.Context,
 	in *emptypb.Empty) (*api_proto.Users, error) {
@@ -71,6 +85,7 @@ func (self *ApiServer) GetUsers(
 		return nil, Status(self.verbose, err)
 	}
 
+	sort.Sort(userByName(users))
 	result.Users = users
 
 	return result, nil
