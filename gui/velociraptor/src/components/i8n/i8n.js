@@ -46,7 +46,15 @@ function T(item, ...args) {
             window.globals["dict"] = x;
             console.log(lang, ": No translation for ", item);
         }
-        d = item;
+
+        // Try to get an english translation of the key if it is
+        // available
+        let en = English[item];
+        if (!_.isUndefined(en)) {
+            d = en;
+        } else {
+            d = item;
+        }
     }
     if (typeof d === 'function') {
         return d.call(null, ...args);

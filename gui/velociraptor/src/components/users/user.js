@@ -75,7 +75,7 @@ class UserState {
             'orgs': [],
             'currentOrg': '',
             'failed' : false,
-        }
+        };
 
         this.password = '';
     }
@@ -87,7 +87,7 @@ class UserState {
     }
 
     hasPermission(perm) {
-        return perm in this.permissions && this.permissions[perm]
+        return perm in this.permissions && this.permissions[perm];
     }
 
     hasRole(role) {
@@ -164,7 +164,7 @@ class UserState {
         user.roles = [ ...this.roles ];
         user.fields = { ...this.fields };
         user.password = this.password;
-        return user
+        return user;
     }
 
     static permissionList() {
@@ -198,7 +198,8 @@ export class User extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.mode === this.props.mode && prevProps.user === this.props.user) {
+        if (prevProps.mode === this.props.mode &&
+            prevProps.user === this.props.user) {
             return;
         }
 
@@ -235,12 +236,14 @@ export class User extends Component {
             endpoint = "v1/UpdateUser";
         }
 
-        api.post(endpoint, { 'User': user, 'password': this.state.user.password, },
-                 this.source.token).then((response) => {
+        api.post(endpoint, {
+            'User': user, 'password': this.state.user.password,
+        }, this.source.token).then((response) => {
             if (!response.cancel) {
                 this.setState({ 'dirty' : false });
-                this.props.userCreatedCallback(this.state.user.fields.name, this.state.user.roles,
-                                               this.state.user.fields.orgs);
+                this.props.userCreatedCallback(
+                    this.state.user.fields.name, this.state.user.roles,
+                    this.state.user.fields.orgs);
                 this.props.openSnackbar(T("User updated."));
                 this.passwordInput.value = '';
             }
@@ -291,8 +294,8 @@ export class User extends Component {
         this.setState((state) => {
             let user_state = state.user.clone();
             user_state.modifyRoles(role, value);
-            return { 'user' : user_state, 'dirty' : true }
-        })
+            return { 'user' : user_state, 'dirty' : true };
+        });
     }
 
     changePermission(perm, e) {
@@ -300,8 +303,8 @@ export class User extends Component {
         this.setState((state) => {
             let user_state = state.user.clone();
             user_state.modifyPermissionValue(perm, value);
-            return { 'user' : user_state, 'dirty' : true }
-        })
+            return { 'user' : user_state, 'dirty' : true };
+        });
     }
 
     changeOrg(org, e) {
@@ -310,7 +313,8 @@ export class User extends Component {
         this.setState((state) => {
             let user_state = state.user.clone();
             if (user_state.modifyOrgs(org, value, this.props.orgs) === false) {
-                    this.props.openSnackbar(T("A user without an organization defaults to membership in the root organization."));
+                    this.props.openSnackbar(
+                        T("A user without an organization defaults to membership in the root organization."));
             }
             return { 'user' : user_state, 'dirty' : true };
         });
@@ -361,7 +365,7 @@ export class User extends Component {
 
     renderUsernameField() {
         if (this.props.password_less) {
-            return this.wrapToolTipOverlay(this.renderUsernameForm(), "ToolUsernamePasswordless")
+            return this.wrapToolTipOverlay(this.renderUsernameForm(), "ToolUsernamePasswordless");
         }
         return this.renderUsernameForm();
     }
@@ -377,9 +381,11 @@ export class User extends Component {
         return (
           <Form.Group as={Col}>
             <Form.Label>{T("Password")}</Form.Label>
-            <Form.Control type="password" placeholder={placeholder} disabled={disabled}
-                          ref={(input) => { this.passwordInput = input; }}
-                          autocomplete="new-password"
+            <Form.Control type="password"
+                          placeholder={placeholder}
+                          disabled={disabled}
+                          ref={input=>{ this.passwordInput = input; }}
+                          autoComplete="new-password"
                           onChange={(e) => this.setUserPassword('password', e.target.value)}/>
           </Form.Group>
         );
@@ -412,7 +418,7 @@ export class User extends Component {
             </Card.Body>
            </Card>
           </div>
-        )
+        );
     }
 
     renderRoleCard() {
@@ -513,7 +519,7 @@ export class User extends Component {
                     return (
                        <Form.Switch label={name} id={key} disabled={disabled} key={key}
                                     checked={checked}
-                                    onChange={(e) => {this.changeOrg(org, e)}} />
+                                    onChange={e=>this.changeOrg(org, e)} />
                     );
               })}
             </Card.Body>
@@ -544,8 +550,8 @@ export class User extends Component {
              <div>
               <Form.Switch label={T("Verified Email")} id="verified-email"
                            disabled={disabled} checked={checked}
-                           onChange={(e) => { this.setUserState('verified_email',
-                                                                e.currentTarget.checked)}} />
+                           onChange={e=>this.setUserState(
+                               'verified_email', e.currentTarget.checked)} />
              </div>
             </OverlayTrigger>
           </Form.Group>
@@ -563,8 +569,8 @@ export class User extends Component {
              <div>
               <Form.Switch label={T("Account Locked")} id="locked"
                            disabled={disabled} checked={checked}
-                           onChange={(e) => {this.setUserState('locked',
-                                                               e.currentTarget.checked)}} />
+                           onChange={e=>this.setUserState(
+                               'locked', e.currentTarget.checked)} />
              </div>
             </OverlayTrigger>
           </Form.Group>
@@ -582,7 +588,7 @@ export class User extends Component {
 
     renderSubmitButton() {
         if (!this.props.admin) {
-            return;
+            return <></>;
         }
 
         return (

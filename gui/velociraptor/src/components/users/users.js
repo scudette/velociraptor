@@ -139,7 +139,7 @@ export default class Users extends Component {
 
         api.delete_req("v1/DeleteUser/" + user, {}, this.usersSource.token).then((response) => {;
             let names = {...this.state.allUsers};
-            delete names[user]
+            delete names[user];
 
             let filtered = this.state.filteredUsers.filter((elem) => { return user !== elem; });
 
@@ -158,7 +158,7 @@ export default class Users extends Component {
 
         api.post("v1/GetUsers", {with_roles: true},
                  this.usersSource.token).then((response) => {
-            let names = {}
+            let names = {};
             if (response.cancel) {
                 return;
             }
@@ -167,7 +167,11 @@ export default class Users extends Component {
                 if (user.Permissions && user.Permissions.roles) {
                     roles = user.Permissions.roles;
                 }
-                names[user.name] = { Username: user.name, Roles: roles, Orgs: user.orgs }
+                names[user.name] = {
+                    Username: user.name,
+                    Roles: roles,
+                    Orgs: user.orgs,
+                };
             });
 
             let tableData = {
@@ -177,7 +181,7 @@ export default class Users extends Component {
 
             let headers = [ T("Username"), T("Permissions"), T("Organizations") ];
 
-            let filtered = Object.keys(names).sort()
+            let filtered = Object.keys(names).sort();
 
             this.setState({allUsers: names, filteredUsers: filtered,
                            users_initialized: true,
@@ -259,14 +263,15 @@ export default class Users extends Component {
         if (this.state.createUser) {
             mode = "create";
         } else if (username) {
-            mode = "edit"
+            mode = "edit";
         }
 
         if (mode) {
             return (
               <User mode={mode} user={username} admin={this.isAdminUser()}
                     password_less={password_less} orgs={this.state.orgs}
-                    userCreatedCallback={(username, roles) => {this.userCreatedCallback(username, roles)}}/>);
+                    userCreatedCallback={(username, roles)=>this.userCreatedCallback(username, roles)}
+              />);
         } else {
             return (<h2 className="no-content">{T("Select a user to view it")}</h2>);
         }
@@ -279,7 +284,9 @@ export default class Users extends Component {
           <tr key={user} className={ selected ? "row-selected" : undefined }>
              <td onClick={(e) => this.onSelect(user, e)}>
                {/* eslint jsx-a11y/anchor-is-valid: "off" */}
-               <a href="#" onClick={(e) => this.onSelect(user, e)}>{user}</a>
+               <a href="#" onClick={e=>this.onSelect(user, e)}>
+                 {user}
+               </a>
              </td>
           </tr>
         );
@@ -323,19 +330,20 @@ export default class Users extends Component {
               </>
             );
         }
+        return <></>;
     }
 
     renderLoadingSpinner() {
         if (this.state.loading) {
-            return <FontAwesomeIcon icon="spinner" spin/>
+            return <FontAwesomeIcon icon="spinner" spin/>;
         } else {
-            return <FontAwesomeIcon icon="broom"/>
+            return <FontAwesomeIcon icon="broom"/>;
         }
     }
 
     renderSearchNavbar() {
         if (this.state.showUserTable || !this.isAdminUser()) {
-            return;
+            return <></>;
         }
         return (
           <Form inline className="">
