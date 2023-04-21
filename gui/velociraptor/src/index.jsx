@@ -10,6 +10,7 @@ import * as serviceWorker from './serviceWorker';
 import {HashRouter} from "react-router-dom";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { library as rlibrary } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faCrosshairs, faWrench, faEye, faServer, faBook, faLaptop,
          faSearch, faSpinner,  faSearchPlus, faFolderOpen, faHistory,
          faTasks, faTerminal, faCompress, faExpand, faEyeSlash, faStop, faExclamation,
@@ -23,7 +24,7 @@ import { faHome, faCrosshairs, faWrench, faEye, faServer, faBook, faLaptop,
          faFileCode, faFlag, faTrashAlt, faClock, faLock, faLockOpen, faCloud,
          faCloudDownloadAlt, faUserEdit, faFilter, faSortAlphaUp, faSortAlphaDown,
          faInfo, faBug, faUser, faList, faIndent, faTextHeight, faBars,
-         faUserLargeSlash
+         faUserLargeSlash, faNetworkWired, faBan,
        } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faHome, faCrosshairs, faWrench, faEye, faServer, faBook, faLaptop,
@@ -39,8 +40,14 @@ library.add(faHome, faCrosshairs, faWrench, faEye, faServer, faBook, faLaptop,
             faBookmark, faHeart, faFileCode, faFlag, faTrashAlt, faClock, faLock, faLockOpen,
             faCloud, faCloudDownloadAlt, faUserEdit, faFilter, faBug,
             faSortAlphaUp, faSortAlphaDown, faInfo, faUser, faList, faIndent,
-            faTextHeight, faBars, faUserLargeSlash
+            faTextHeight, faBars, faUserLargeSlash, faNetworkWired, faBan,
            );
+
+import { faCircle, faCircleXmark
+       }  from '@fortawesome/free-regular-svg-icons';
+
+rlibrary.add(faCircle, faCircleXmark
+            );
 
 ReactDOM.render(
     <HashRouter>

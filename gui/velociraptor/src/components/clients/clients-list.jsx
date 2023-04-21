@@ -461,11 +461,27 @@ class VeloClientList extends Component {
                             let filter = this.state.filter === ONLINE ? UNFILTERED : ONLINE;
                             this.setState({filter: filter});
                         }}
-                  >
+                >
                   <span className="button-label">
                     { this.state.filter === ONLINE ?
-                      <img className="icon-small" src={api.src_of(online)} alt="online" />  :
-                      <img className="icon-small" src={api.src_of(any)} alt="any state" />
+                      <span
+                        data-tooltip={T("Show all clients")}
+                        className="fa-stack fa-fw btn-tooltip">
+                        <FontAwesomeIcon
+                          className="fa-beat fa-stack-1x"
+                          icon="fa-solid fa-network-wired"
+                          alt="online" />
+                        <span className="sr-only">{T("Show all clients")}</span>
+                      </span> :
+                      <span
+                        data-tooltip={T("Filter online clients")}
+                        className="fa-stack fa-fw btn-tooltip">
+                        <FontAwesomeIcon
+                          className="fa-stack-1x"
+                          icon="fa-solid fa-network-wired"
+                          alt="online" />
+                        <span className="sr-only">{T("Filter online clients")}</span>
+                      </span>
                     }
                   </span>
                 </Button>
