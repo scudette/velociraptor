@@ -52,12 +52,32 @@ func (self *EventTraceWatcherService) Register(
 	defer self.mu.Unlock()
 
 	subctx, cancel := context.WithCancel(ctx)
-
 	handle := &Handle{
+		id:          utils.GetId(),
 		ctx:         subctx,
 		output_chan: output_chan,
 		scope:       scope,
 		guid:        wGuid}
+
+	deregistration := func() {
+		cancel()
+
+		self.mu.Lock()
+		defer self.mu.Unlock()
+
+		scope.Log("Unregistering %v\n", handle.guid)
+
+		existing_registrations, pres := self.registrations[session_name]
+		if pres {
+			new_reg := make([]*Handle, 0, len(existing_registrations))
+			for _, h := range existing_registrations {
+				if h.id != handle.id {
+					new_reg = append(new_reg, h)
+				}
+			}
+			self.registrations[session_name] = new_reg
+		}
+	}
 
 	registration, pres := self.registrations[session_name]
 	if !pres {
@@ -106,7 +126,7 @@ func (self *EventTraceWatcherService) Register(
 
 	scope.Log("Registering watcher for %v", provider_guid)
 
-	return cancel, nil
+	return deregistration, nil
 }
 
 // StartMonitoring monitors the session and emits events to all interested
@@ -125,7 +145,8 @@ func (self *EventTraceWatcherService) StartMonitoring(
 
 	cb := func(e *etw.Event) {
 		event := ordereddict.NewDict().
-			Set("System", e.Header)
+			Set("System", e.Header).
+			Set("ProviderGUID", e.Header.ProviderID.String())
 
 		data, err := e.EventProperties()
 		if err == nil {
@@ -209,6 +230,7 @@ func (self *EventTraceWatcherService) UpdateSession(
 // parties are done we may destroy the monitoring go routine and remove
 // the registration.
 type Handle struct {
+	id          uint64
 	ctx         context.Context
 	output_chan chan vfilter.Row
 	scope       vfilter.Scope
